@@ -1,9 +1,12 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 namespace tictactoe {
 
+using std::string;
+using std::vector;
 /**
  * This enumeration specifies the possible results of the evaluation of a
  * Tic-Tac-Toe board.
@@ -40,6 +43,14 @@ class Board {
 
  private:
   /// TODO: add your helper functions and member variables here
+  string specificBoard;
+  int boardSideLength;
+
+  vector<vector<char>> FillCharArray();
+  BoardState CheckHorizontal(vector<vector<char>> vector);
+  BoardState CheckVertical(vector<vector<char>> vector);
+  BoardState CheckDiagonalLeftToRight(vector<vector<char>> vector);
+  BoardState CheckDiagonalRightToLeft(vector<vector<char>> vector);
 };
 
 }  // namespace tictactoe
