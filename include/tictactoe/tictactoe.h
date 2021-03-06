@@ -46,11 +46,11 @@ class Board {
   string specificBoard;
   int boardSideLength;
 
-  vector<vector<char>> FillCharArray();
-  BoardState CheckHorizontal(vector<vector<char>> vector);
-  BoardState CheckVertical(vector<vector<char>> vector);
-  BoardState CheckDiagonalLeftToRight(vector<vector<char>> vector);
-  BoardState CheckDiagonalRightToLeft(vector<vector<char>> vector);
+  vector<vector<char>> FillCharArray() const;
+  BoardState CheckHorizontal(vector<vector<char>> vector) const;
+  BoardState CheckVertical(vector<vector<char>> vector) const;
+  BoardState CheckDiagonalLeftToRight(vector<vector<char>> vector) const;
+  BoardState CheckDiagonalRightToLeft(vector<vector<char>> vector) const;
 };
 
 }  // namespace tictactoe

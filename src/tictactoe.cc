@@ -16,9 +16,51 @@ Board::Board(const string& board) {
   boardSideLength = (int)sqrt(specificBoard.length());
 }
 
-BoardState Board::EvaluateBoard() const { return BoardState::NoWinner; }
+BoardState Board::EvaluateBoard() const {
+  int numOfX = 0;
+  int numOfO = 0;
 
-vector<vector<char>> Board::FillCharArray() {
+  // counts the amount of Xs and Os in the board
+  for (int position = 0; position < specificBoard.length(); position++) {
+    transform(specificBoard.begin(), specificBoard.end(),
+              specificBoard.begin(), ::tolower);
+    if (specificBoard.at(position) == 'x') {
+      numOfX++;
+    } else if (specificBoard.at(position) =='o') {
+      numOfO++;
+    }
+  }
+
+  vector<vector<char>> boardArray = FillCharArray();
+
+  if (abs(numOfO - numOfX) <= 1) {
+    BoardState isWinner = BoardState::NoWinner;
+
+    // check if there is a winner horizontally
+    isWinner = CheckHorizontal(boardArray);
+
+    // check if there is a winner vertically
+    if (isWinner == BoardState::NoWinner) {
+      isWinner = CheckVertical(boardArray);
+    }
+
+    // check if there is a winner diagonally left to right
+    if (isWinner == BoardState::NoWinner) {
+      isWinner = CheckDiagonalLeftToRight(boardArray);
+    }
+
+    // check if there is a winner diagonally right to left
+    if (isWinner == BoardState::NoWinner) {
+      isWinner = CheckDiagonalRightToLeft(boardArray);
+    }
+
+    return isWinner;
+  } else {
+    return BoardState::UnreachableState;
+  }
+}
+
+vector<vector<char>> Board::FillCharArray() const {
   vector<vector<char>> array;
   int positionOnString = 0;
   for (int i = 0; i < boardSideLength; i++) {
@@ -35,7 +77,7 @@ vector<vector<char>> Board::FillCharArray() {
   return array;
 }
 
-BoardState Board::CheckHorizontal(vector<vector<char>> vector) {
+BoardState Board::CheckHorizontal(vector<vector<char>> vector) const {
   int numOfXHorizontal = 0;
   int numOfOHorizontal = 0;
 
@@ -70,7 +112,7 @@ BoardState Board::CheckHorizontal(vector<vector<char>> vector) {
   return isWinner;
 }
 
-BoardState Board::CheckVertical(vector<vector<char>> vector) {
+BoardState Board::CheckVertical(vector<vector<char>> vector) const {
   int numOfXVertical = 0;
   int numOfOVertical = 0;
 
@@ -103,7 +145,7 @@ BoardState Board::CheckVertical(vector<vector<char>> vector) {
   return isWinner;
 }
 
-BoardState Board::CheckDiagonalLeftToRight(vector<vector<char>> vector) {
+BoardState Board::CheckDiagonalLeftToRight(vector<vector<char>> vector) const {
   int numOfXDiagonal = 0;
   int numOfODiagonal = 0;
 
@@ -132,7 +174,7 @@ BoardState Board::CheckDiagonalLeftToRight(vector<vector<char>> vector) {
   return isWinner;
 }
 
-BoardState Board::CheckDiagonalRightToLeft(vector<vector<char>> vector) {
+BoardState Board::CheckDiagonalRightToLeft(vector<vector<char>> vector) const {
   int numOfXDiagonal = 0;
   int numOfODiagonal = 0;
 
