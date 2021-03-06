@@ -88,6 +88,32 @@ TEST_CASE("Boards where X wins") {
   }
 }
 
-TEST_CASE() {
-
+TEST_CASE("Boards where O wins") {
+  SECTION("Full board where O wins vertically") {
+    REQUIRE(Board("OxXoxoOoX").EvaluateBoard() == BoardState::Owins);
+  }
+  SECTION("Incomplete board where O wins vertically") {
+    REQUIRE(Board("XoxOo-xox").EvaluateBoard() == BoardState::Owins);
+  }
+  SECTION("Full board where O wins horizontally") {
+    REQUIRE(Board("OoOxOxoxx").EvaluateBoard() == BoardState::Owins);
+  }
+  SECTION("Incomplete board where O wins horizontally") {
+    REQUIRE(Board("x.XooO.oX").EvaluateBoard() == BoardState::Owins);
+  }
+  SECTION("Full board where O wins diagonally") {
+    REQUIRE(Board("oXOooxXxo").EvaluateBoard() == BoardState::Owins);
+  }
+  SECTION("Incomplete board where O wins diagonally") {
+    REQUIRE(Board("xxo.O.O.x").EvaluateBoard() == BoardState::Owins);
+  }
+  SECTION("Full board where O wins horizontally and vertically") {
+    REQUIRE(Board("oOooxXoXx").EvaluateBoard() == BoardState::Owins);
+  }
+  SECTION("Full board where O wins horizontally and diagonally") {
+    REQUIRE(Board("xXoOoOoxx").EvaluateBoard() == BoardState::Owins);
+  }
+  SECTION("Full board where O wins vertically and diagonally") {
+    REQUIRE(Board("oOxxoxXoo").EvaluateBoard() == BoardState::Owins);
+  }
 }
