@@ -13,6 +13,8 @@ Board::Board(const string& board) {
     throw std::invalid_argument("The string provided is not a valid board.");
   }
   specificBoard = board;
+  transform(specificBoard.begin(), specificBoard.end(),
+            specificBoard.begin(), ::tolower);
   boardSideLength = (int)sqrt(specificBoard.length());
 }
 
@@ -22,8 +24,6 @@ BoardState Board::EvaluateBoard() const {
 
   // counts the amount of Xs and Os in the board
   for (int position = 0; position < specificBoard.length(); position++) {
-    transform(specificBoard.begin(), specificBoard.end(),
-              specificBoard.begin(), ::tolower);
     if (specificBoard.at(position) == 'x') {
       numOfX++;
     } else if (specificBoard.at(position) =='o') {
@@ -66,8 +66,6 @@ vector<vector<char>> Board::FillCharArray() const {
   for (int i = 0; i < boardSideLength; i++) {
     vector<char> row;
     for (int j = 0; j < boardSideLength; j++) {
-      transform(specificBoard.begin(), specificBoard.end(),
-                specificBoard.begin(), ::tolower);
       char letter = specificBoard[positionOnString];
       row.push_back(letter);
       positionOnString++;
