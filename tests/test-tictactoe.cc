@@ -57,3 +57,37 @@ TEST_CASE("Boards that are unreachable") {
     REQUIRE(Board("XxXxxXooX").EvaluateBoard() == BoardState::UnreachableState);
   }
 }
+
+TEST_CASE("Boards where X wins") {
+  SECTION("Full board where X wins vertically") {
+    REQUIRE(Board("XooxOxXXo").EvaluateBoard() == BoardState::Xwins);
+  }
+  SECTION("Incomplete board where X wins vertically") {
+    REQUIRE(Board("oXOxX-OXO").EvaluateBoard() == BoardState::Xwins);
+  }
+  SECTION("Full board where X wins horizontally") {
+    REQUIRE(Board("XXxOXOxoo").EvaluateBoard() == BoardState::Xwins);
+  }
+  SECTION("Incomplete board where X wins horizontally") {
+    REQUIRE(Board("o.oXxX.xO").EvaluateBoard() == BoardState::Xwins);
+  }
+  SECTION("Full board where X wins diagonally") {
+    REQUIRE(Board("XOxXxoOOX").EvaluateBoard() == BoardState::Xwins);
+  }
+  SECTION("Incomplete board where X wins diagonally") {
+    REQUIRE(Board("Oox.X.x.o").EvaluateBoard() == BoardState::Xwins);
+  }
+  SECTION("Full board where X wins horizontally and vertically") {
+    REQUIRE(Board("oxoxxxoxo").EvaluateBoard() == BoardState::Xwins);
+  }
+  SECTION("Full board where X wins horizontally and diagonally") {
+    REQUIRE(Board("xOOxxxooX").EvaluateBoard() == BoardState::Xwins);
+  }
+  SECTION("Full board where X wins vertically and diagonally") {
+    REQUIRE(Board("oXxoXOxxo").EvaluateBoard() == BoardState::Xwins);
+  }
+}
+
+TEST_CASE() {
+
+}
