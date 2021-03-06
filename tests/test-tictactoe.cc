@@ -20,8 +20,16 @@ TEST_CASE("Boards with no winner") {
   SECTION("Full board with no winner") {
     REQUIRE(Board("xxoooxxxo").EvaluateBoard() == BoardState::NoWinner);
   }
-
-  SECTION("placeholder") {
-
+  SECTION("Full board with no winner - ignore case") {
+    REQUIRE(Board("oOxXXoOxO").EvaluateBoard() == BoardState::NoWinner);
+  }
+  SECTION("Incomplete board with no winner") {
+    REQUIRE(Board("x.x.o..o.").EvaluateBoard() == BoardState::NoWinner);
+  }
+  SECTION("Incomplete board with no winner - ignore case") {
+    REQUIRE(Board("X.x.O..o.").EvaluateBoard() == BoardState::NoWinner);
+  }
+  SECTION("Empty board with no winner") {
+    REQUIRE(Board("---------").EvaluateBoard() == BoardState::NoWinner);
   }
 }
