@@ -33,3 +33,27 @@ TEST_CASE("Boards with no winner") {
     REQUIRE(Board("---------").EvaluateBoard() == BoardState::NoWinner);
   }
 }
+
+TEST_CASE("Boards that are unreachable") {
+  SECTION("Full board with only Xs") {
+    REQUIRE(Board("xxxxxxxxx").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Full board with only Xs - ignore case") {
+    REQUIRE(Board("xXxXxXxXx").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Full board with only Os") {
+    REQUIRE(Board("ooooooooo").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Full board with only Os - ignore case") {
+    REQUIRE(Board("oOoOoOoOo").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Full board with two winners horizontal") {
+    REQUIRE(Board("xxxOOO...").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Full board with two winners vertical") {
+    REQUIRE(Board("xo-xo-xo-").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Full board with difference of x and o is > 1 - unfair turns") {
+    REQUIRE(Board("XxXxxXooX").EvaluateBoard() == BoardState::UnreachableState);
+  }
+}
