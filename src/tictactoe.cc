@@ -33,7 +33,7 @@ BoardState Board::EvaluateBoard() const {
 
   vector<vector<char>> boardArray = FillCharArray();
 
-  if (abs(numOfO - numOfX) <= 1 && numOfO < numOfX) {
+  if (abs(numOfO - numOfX) <= 1 && numOfO <= numOfX) {
     BoardState isWinner = BoardState::NoWinner;
 
     // check if there is a winner horizontally
@@ -52,6 +52,11 @@ BoardState Board::EvaluateBoard() const {
     // check if there is a winner diagonally right to left
     if (isWinner == BoardState::NoWinner) {
       isWinner = CheckDiagonalRightToLeft(boardArray);
+    }
+
+    // to overcome edge case where O wins and numOfX > numOfO
+    if (isWinner == BoardState::Owins && numOfX > numOfO) {
+      isWinner = BoardState::UnreachableState;
     }
     return isWinner;
   } else {
