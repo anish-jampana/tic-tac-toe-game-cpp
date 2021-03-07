@@ -7,12 +7,14 @@ using tictactoe::Board;
 using tictactoe::BoardState;
 
 TEST_CASE("Invalid string provided to constructor") {
-  SECTION("String is too short") {
-    REQUIRE_THROWS_AS(Board("xxooo"), std::invalid_argument);
+  SECTION("String is too short - length 8") {
+    REQUIRE_THROWS_AS(Board("xxoooxxo"), std::invalid_argument);
   }
-
-  SECTION("placeholder") {
-
+  SECTION("String is too large - length 10") {
+    REQUIRE_THROWS_AS(Board("xxoooxxoox"), std::invalid_argument);
+  }
+  SECTION("Empty String input") {
+    REQUIRE_THROWS_AS(Board(""), std::invalid_argument);
   }
 }
 
@@ -55,6 +57,15 @@ TEST_CASE("Boards that are unreachable") {
   }
   SECTION("Full board with difference of x and o is > 1 - unfair turns") {
     REQUIRE(Board("XxXxxXooX").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Full board where O wins horizontally and vertically") {
+    REQUIRE(Board("oOooxXoXx").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Full board where O wins horizontally and diagonally") {
+    REQUIRE(Board("xXoOoOoxx").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Full board where O wins vertically and diagonally") {
+    REQUIRE(Board("oOxxoxXoo").EvaluateBoard() == BoardState::UnreachableState);
   }
 }
 
@@ -106,14 +117,5 @@ TEST_CASE("Boards where O wins") {
   }
   SECTION("Incomplete board where O wins diagonally") {
     REQUIRE(Board("xxo.O.O.x").EvaluateBoard() == BoardState::Owins);
-  }
-  SECTION("Full board where O wins horizontally and vertically") {
-    REQUIRE(Board("oOooxXoXx").EvaluateBoard() == BoardState::Owins);
-  }
-  SECTION("Full board where O wins horizontally and diagonally") {
-    REQUIRE(Board("xXoOoOoxx").EvaluateBoard() == BoardState::Owins);
-  }
-  SECTION("Full board where O wins vertically and diagonally") {
-    REQUIRE(Board("oOxxoxXoo").EvaluateBoard() == BoardState::Owins);
   }
 }
