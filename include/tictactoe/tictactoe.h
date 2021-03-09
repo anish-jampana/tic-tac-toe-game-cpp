@@ -43,8 +43,8 @@ class Board {
 
  private:
   /// TODO: add your helper functions and member variables here
-  string specificBoard;
-  int boardSideLength;
+  string specific_board_;
+  int board_side_length_;
 
   vector<vector<char>> FillCharArray() const;
   BoardState CheckHorizontal(vector<vector<char>> vector) const;
