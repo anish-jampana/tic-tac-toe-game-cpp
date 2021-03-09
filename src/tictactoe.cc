@@ -31,41 +31,41 @@ BoardState Board::EvaluateBoard() const {
     }
   }
 
-  vector<vector<char>> boardArray = FillCharArray();
+  vector<vector<char>> boardArray = FillGameBoard();
 
   if (abs(num_of_o - num_of_x) <= 1 && num_of_o <= num_of_x) {
-    BoardState isWinner = BoardState::NoWinner;
+    BoardState is_winner = BoardState::NoWinner;
 
     // check if there is a winner horizontally
-    isWinner = CheckHorizontal(boardArray);
+    is_winner = CheckHorizontal(boardArray);
 
     // check if there is a winner vertically
-    if (isWinner == BoardState::NoWinner) {
-      isWinner = CheckVertical(boardArray);
+    if (is_winner == BoardState::NoWinner) {
+      is_winner = CheckVertical(boardArray);
     }
 
     // check if there is a winner diagonally left to right
-    if (isWinner == BoardState::NoWinner) {
-      isWinner = CheckDiagonalLeftToRight(boardArray);
+    if (is_winner == BoardState::NoWinner) {
+      is_winner = CheckDiagonalLeftToRight(boardArray);
     }
 
     // check if there is a winner diagonally right to left
-    if (isWinner == BoardState::NoWinner) {
-      isWinner = CheckDiagonalRightToLeft(boardArray);
+    if (is_winner == BoardState::NoWinner) {
+      is_winner = CheckDiagonalRightToLeft(boardArray);
     }
 
     // to overcome edge case where O wins and num_of_x > num_of_o
-    if (isWinner == BoardState::Owins && num_of_x > num_of_o) {
-      isWinner = BoardState::UnreachableState;
+    if (is_winner == BoardState::Owins && num_of_x > num_of_o) {
+      is_winner = BoardState::UnreachableState;
     }
-    return isWinner;
+    return is_winner;
   } else {
     return BoardState::UnreachableState;
   }
 }
 
-vector<vector<char>> Board::FillCharArray() const {
-  vector<vector<char>> array;
+vector<vector<char>> Board::FillGameBoard() const {
+  vector<vector<char>> game_board;
   int positionOnString = 0;
   for (int i = 0; i < board_side_length_; i++) {
     vector<char> row;
@@ -74,135 +74,135 @@ vector<vector<char>> Board::FillCharArray() const {
       row.push_back(letter);
       positionOnString++;
     }
-    array.push_back(row);
+    game_board.push_back(row);
   }
-  return array;
+  return game_board;
 }
 
-BoardState Board::CheckHorizontal(vector<vector<char>> vector) const {
+BoardState Board::CheckHorizontal(vector<vector<char>> game_board) const {
   int num_of_x_horizontal = 0;
   int num_of_o_horizontal = 0;
 
-  BoardState isWinner = BoardState::NoWinner;
+  BoardState is_winner = BoardState::NoWinner;
 
   for (int i = 0; i < board_side_length_; i++) {
     num_of_x_horizontal = 0;
     num_of_o_horizontal = 0;
     for (int j = 0; j < board_side_length_; j++) {
-      if (vector.at(i).at(j) == 'x') {
+      if (game_board.at(i).at(j) == 'x') {
         num_of_x_horizontal++;
-      } else if (vector.at(i).at(j) == 'o') {
+      } else if (game_board.at(i).at(j) == 'o') {
         num_of_o_horizontal++;
       }
       if (num_of_x_horizontal == board_side_length_) {
-        if (isWinner == BoardState::Owins ||
-            isWinner == BoardState::UnreachableState) {
-          isWinner = BoardState::UnreachableState;
+        if (is_winner == BoardState::Owins ||
+            is_winner == BoardState::UnreachableState) {
+          is_winner = BoardState::UnreachableState;
         } else {
-          isWinner = BoardState::Xwins;
+          is_winner = BoardState::Xwins;
         }
       } else if (num_of_o_horizontal == board_side_length_) {
-        if (isWinner == BoardState::Xwins ||
-            isWinner == BoardState::UnreachableState) {
-          isWinner = BoardState::UnreachableState;
+        if (is_winner == BoardState::Xwins ||
+            is_winner == BoardState::UnreachableState) {
+          is_winner = BoardState::UnreachableState;
         } else {
-          isWinner = BoardState::Owins;
+          is_winner = BoardState::Owins;
         }
       }
     }
   }
-  return isWinner;
+  return is_winner;
 }
 
-BoardState Board::CheckVertical(vector<vector<char>> vector) const {
+BoardState Board::CheckVertical(vector<vector<char>> game_board) const {
   int num_of_x_vertical = 0;
   int num_of_o_vertical = 0;
 
-  BoardState isWinner = BoardState::NoWinner;
+  BoardState is_winner = BoardState::NoWinner;
 
   for (int i = 0; i < board_side_length_; i++) {
     num_of_x_vertical = 0;
     num_of_o_vertical = 0;
     for (int j = 0; j < board_side_length_; j++) {
-      if (vector.at(j).at(i) == 'x') {
+      if (game_board.at(j).at(i) == 'x') {
         num_of_x_vertical++;
-      } else if (vector.at(j).at(i) == 'o') {
+      } else if (game_board.at(j).at(i) == 'o') {
         num_of_o_vertical++;
       }
       if (num_of_x_vertical == board_side_length_) {
-        if (isWinner == BoardState::Owins || isWinner == BoardState::UnreachableState) {
-          isWinner = BoardState::UnreachableState;
+        if (is_winner == BoardState::Owins || is_winner == BoardState::UnreachableState) {
+          is_winner = BoardState::UnreachableState;
         } else {
-          isWinner = BoardState::Xwins;
+          is_winner = BoardState::Xwins;
         }
       } else if (num_of_o_vertical == board_side_length_) {
-        if (isWinner == BoardState::Xwins || isWinner == BoardState::UnreachableState) {
-          isWinner = BoardState::UnreachableState;
+        if (is_winner == BoardState::Xwins || is_winner == BoardState::UnreachableState) {
+          is_winner = BoardState::UnreachableState;
         } else {
-          isWinner = BoardState::Owins;
+          is_winner = BoardState::Owins;
         }
       }
     }
   }
-  return isWinner;
+  return is_winner;
 }
 
-BoardState Board::CheckDiagonalLeftToRight(vector<vector<char>> vector) const {
+BoardState Board::CheckDiagonalLeftToRight(vector<vector<char>> game_board) const {
   int num_of_x_diagonal = 0;
   int num_of_o_diagonal = 0;
 
-  BoardState isWinner = BoardState::NoWinner;
+  BoardState is_winner = BoardState::NoWinner;
 
   for (int i = 0, j = 0; i < board_side_length_; i++, j++) {
-    if (vector.at(i).at(j) == 'x') {
+    if (game_board.at(i).at(j) == 'x') {
       num_of_x_diagonal++;
-    } else if (vector.at(i).at(j) == 'o') {
+    } else if (game_board.at(i).at(j) == 'o') {
       num_of_o_diagonal++;
     }
     if (num_of_x_diagonal == board_side_length_) {
-      if (isWinner == BoardState::Owins || isWinner == BoardState::UnreachableState) {
-        isWinner = BoardState::UnreachableState;
+      if (is_winner == BoardState::Owins || is_winner == BoardState::UnreachableState) {
+        is_winner = BoardState::UnreachableState;
       } else {
-        isWinner = BoardState::Xwins;
+        is_winner = BoardState::Xwins;
       }
     } else if (num_of_o_diagonal == board_side_length_) {
-      if (isWinner == BoardState::Xwins || isWinner == BoardState::UnreachableState) {
-        isWinner = BoardState::UnreachableState;
+      if (is_winner == BoardState::Xwins || is_winner == BoardState::UnreachableState) {
+        is_winner = BoardState::UnreachableState;
       } else {
-        isWinner = BoardState::Owins;
+        is_winner = BoardState::Owins;
       }
     }
   }
-  return isWinner;
+  return is_winner;
 }
 
-BoardState Board::CheckDiagonalRightToLeft(vector<vector<char>> vector) const {
+BoardState Board::CheckDiagonalRightToLeft(vector<vector<char>> game_board) const {
   int num_of_x_diagonal = 0;
   int num_of_o_diagonal = 0;
 
-  BoardState isWinner = BoardState::NoWinner;
+  BoardState is_winner = BoardState::NoWinner;
 
   for (int i = 0, j = board_side_length_ - 1; i < board_side_length_; i++, j--) {
-    if (vector.at(i).at(j) == 'x') {
+    if (game_board.at(i).at(j) == 'x') {
       num_of_x_diagonal++;
-    } else if (vector.at(i).at(j) == 'o') {
+    } else if (game_board.at(i).at(j) == 'o') {
       num_of_o_diagonal++;
     }
     if (num_of_x_diagonal == board_side_length_) {
-      if (isWinner == BoardState::Owins || isWinner == BoardState::UnreachableState) {
-        isWinner = BoardState::UnreachableState;
+      if (is_winner == BoardState::Owins || is_winner == BoardState::UnreachableState) {
+        is_winner = BoardState::UnreachableState;
       } else {
-        isWinner = BoardState::Xwins;
+        is_winner = BoardState::Xwins;
       }
     } else if (num_of_o_diagonal == board_side_length_) {
-      if (isWinner == BoardState::Xwins || isWinner == BoardState::UnreachableState) {
-        isWinner = BoardState::UnreachableState;
+      if (is_winner == BoardState::Xwins || is_winner == BoardState::UnreachableState) {
+        is_winner = BoardState::UnreachableState;
       } else {
-        isWinner = BoardState::Owins;
+        is_winner = BoardState::Owins;
       }
     }
   }
-  return isWinner;
+  return is_winner;
 }
 
 }  // namespace tictactoe

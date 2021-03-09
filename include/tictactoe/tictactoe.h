@@ -46,7 +46,7 @@ class Board {
   string specific_board_;
   int board_side_length_;
 
-  vector<vector<char>> FillCharArray() const;
+  vector<vector<char>> FillGameBoard() const;
   BoardState CheckHorizontal(vector<vector<char>> vector) const;
   BoardState CheckVertical(vector<vector<char>> vector) const;
   BoardState CheckDiagonalLeftToRight(vector<vector<char>> vector) const;

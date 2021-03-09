@@ -49,10 +49,10 @@ TEST_CASE("Boards that are unreachable") {
   SECTION("Full board with only Os - ignore case") {
     REQUIRE(Board("oOoOoOoOo").EvaluateBoard() == BoardState::UnreachableState);
   }
-  SECTION("Full board with two different winners horizontal") {
+  SECTION("Incomplete board with two different winners horizontal") {
     REQUIRE(Board("xxxOOO...").EvaluateBoard() == BoardState::UnreachableState);
   }
-  SECTION("Full board with two different winners vertical") {
+  SECTION("Incomplete board with two different winners vertical") {
     REQUIRE(Board("xo-xo-xo-").EvaluateBoard() == BoardState::UnreachableState);
   }
   SECTION("Full board with difference of x and o is > 1 - unfair turns") {
@@ -73,10 +73,10 @@ TEST_CASE("Boards that are unreachable") {
   SECTION("Full board where numOfX > numOfO + 1") {
     REQUIRE(Board("xxxxXxOoO").EvaluateBoard() == BoardState::UnreachableState);
   }
-  SECTION("Full board where numOfX == numOfO when X has won") {
+  SECTION("Incomplete board where numOfX == numOfO when X has won") {
     REQUIRE(Board("xXooXo-xo").EvaluateBoard() == BoardState::UnreachableState);
   }
-  SECTION("Full board where numOfX == numOfO + 1 when O has won") {
+  SECTION("Incomplete board where numOfX == numOfO + 1 when O has won") {
     REQUIRE(Board("xOxxO--ox").EvaluateBoard() == BoardState::UnreachableState);
   }
 
