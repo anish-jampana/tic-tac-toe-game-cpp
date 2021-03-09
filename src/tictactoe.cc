@@ -19,21 +19,21 @@ Board::Board(const string& board) {
 }
 
 BoardState Board::EvaluateBoard() const {
-  int numOfX = 0;
-  int numOfO = 0;
+  int num_of_x = 0;
+  int num_of_o = 0;
 
   // counts the amount of Xs and Os in the board
   for (int position = 0; position < specific_board_.length(); position++) {
     if (specific_board_.at(position) == 'x') {
-      numOfX++;
+      num_of_x++;
     } else if (specific_board_.at(position) =='o') {
-      numOfO++;
+      num_of_o++;
     }
   }
 
   vector<vector<char>> boardArray = FillCharArray();
 
-  if (abs(numOfO - numOfX) <= 1 && numOfO <= numOfX) {
+  if (abs(num_of_o - num_of_x) <= 1 && num_of_o <= num_of_x) {
     BoardState isWinner = BoardState::NoWinner;
 
     // check if there is a winner horizontally
@@ -54,8 +54,8 @@ BoardState Board::EvaluateBoard() const {
       isWinner = CheckDiagonalRightToLeft(boardArray);
     }
 
-    // to overcome edge case where O wins and numOfX > numOfO
-    if (isWinner == BoardState::Owins && numOfX > numOfO) {
+    // to overcome edge case where O wins and num_of_x > num_of_o
+    if (isWinner == BoardState::Owins && num_of_x > num_of_o) {
       isWinner = BoardState::UnreachableState;
     }
     return isWinner;
@@ -80,28 +80,28 @@ vector<vector<char>> Board::FillCharArray() const {
 }
 
 BoardState Board::CheckHorizontal(vector<vector<char>> vector) const {
-  int numOfXHorizontal = 0;
-  int numOfOHorizontal = 0;
+  int num_of_x_horizontal = 0;
+  int num_of_o_horizontal = 0;
 
   BoardState isWinner = BoardState::NoWinner;
 
   for (int i = 0; i < board_side_length_; i++) {
-    numOfXHorizontal = 0;
-    numOfOHorizontal = 0;
+    num_of_x_horizontal = 0;
+    num_of_o_horizontal = 0;
     for (int j = 0; j < board_side_length_; j++) {
       if (vector.at(i).at(j) == 'x') {
-        numOfXHorizontal++;
+        num_of_x_horizontal++;
       } else if (vector.at(i).at(j) == 'o') {
-        numOfOHorizontal++;
+        num_of_o_horizontal++;
       }
-      if (numOfXHorizontal == board_side_length_) {
+      if (num_of_x_horizontal == board_side_length_) {
         if (isWinner == BoardState::Owins ||
             isWinner == BoardState::UnreachableState) {
           isWinner = BoardState::UnreachableState;
         } else {
           isWinner = BoardState::Xwins;
         }
-      } else if (numOfOHorizontal == board_side_length_) {
+      } else if (num_of_o_horizontal == board_side_length_) {
         if (isWinner == BoardState::Xwins ||
             isWinner == BoardState::UnreachableState) {
           isWinner = BoardState::UnreachableState;
@@ -115,27 +115,27 @@ BoardState Board::CheckHorizontal(vector<vector<char>> vector) const {
 }
 
 BoardState Board::CheckVertical(vector<vector<char>> vector) const {
-  int numOfXVertical = 0;
-  int numOfOVertical = 0;
+  int num_of_x_vertical = 0;
+  int num_of_o_vertical = 0;
 
   BoardState isWinner = BoardState::NoWinner;
 
   for (int i = 0; i < board_side_length_; i++) {
-    numOfXVertical = 0;
-    numOfOVertical = 0;
+    num_of_x_vertical = 0;
+    num_of_o_vertical = 0;
     for (int j = 0; j < board_side_length_; j++) {
       if (vector.at(j).at(i) == 'x') {
-        numOfXVertical++;
+        num_of_x_vertical++;
       } else if (vector.at(j).at(i) == 'o') {
-        numOfOVertical++;
+        num_of_o_vertical++;
       }
-      if (numOfXVertical == board_side_length_) {
+      if (num_of_x_vertical == board_side_length_) {
         if (isWinner == BoardState::Owins || isWinner == BoardState::UnreachableState) {
           isWinner = BoardState::UnreachableState;
         } else {
           isWinner = BoardState::Xwins;
         }
-      } else if (numOfOVertical == board_side_length_) {
+      } else if (num_of_o_vertical == board_side_length_) {
         if (isWinner == BoardState::Xwins || isWinner == BoardState::UnreachableState) {
           isWinner = BoardState::UnreachableState;
         } else {
@@ -148,24 +148,24 @@ BoardState Board::CheckVertical(vector<vector<char>> vector) const {
 }
 
 BoardState Board::CheckDiagonalLeftToRight(vector<vector<char>> vector) const {
-  int numOfXDiagonal = 0;
-  int numOfODiagonal = 0;
+  int num_of_x_diagonal = 0;
+  int num_of_o_diagonal = 0;
 
   BoardState isWinner = BoardState::NoWinner;
 
   for (int i = 0, j = 0; i < board_side_length_; i++, j++) {
     if (vector.at(i).at(j) == 'x') {
-      numOfXDiagonal++;
+      num_of_x_diagonal++;
     } else if (vector.at(i).at(j) == 'o') {
-      numOfODiagonal++;
+      num_of_o_diagonal++;
     }
-    if (numOfXDiagonal == board_side_length_) {
+    if (num_of_x_diagonal == board_side_length_) {
       if (isWinner == BoardState::Owins || isWinner == BoardState::UnreachableState) {
         isWinner = BoardState::UnreachableState;
       } else {
         isWinner = BoardState::Xwins;
       }
-    } else if (numOfODiagonal == board_side_length_) {
+    } else if (num_of_o_diagonal == board_side_length_) {
       if (isWinner == BoardState::Xwins || isWinner == BoardState::UnreachableState) {
         isWinner = BoardState::UnreachableState;
       } else {
@@ -177,24 +177,24 @@ BoardState Board::CheckDiagonalLeftToRight(vector<vector<char>> vector) const {
 }
 
 BoardState Board::CheckDiagonalRightToLeft(vector<vector<char>> vector) const {
-  int numOfXDiagonal = 0;
-  int numOfODiagonal = 0;
+  int num_of_x_diagonal = 0;
+  int num_of_o_diagonal = 0;
 
   BoardState isWinner = BoardState::NoWinner;
 
   for (int i = 0, j = board_side_length_ - 1; i < board_side_length_; i++, j--) {
     if (vector.at(i).at(j) == 'x') {
-      numOfXDiagonal++;
+      num_of_x_diagonal++;
     } else if (vector.at(i).at(j) == 'o') {
-      numOfODiagonal++;
+      num_of_o_diagonal++;
     }
-    if (numOfXDiagonal == board_side_length_) {
+    if (num_of_x_diagonal == board_side_length_) {
       if (isWinner == BoardState::Owins || isWinner == BoardState::UnreachableState) {
         isWinner = BoardState::UnreachableState;
       } else {
         isWinner = BoardState::Xwins;
       }
-    } else if (numOfODiagonal == board_side_length_) {
+    } else if (num_of_o_diagonal == board_side_length_) {
       if (isWinner == BoardState::Xwins || isWinner == BoardState::UnreachableState) {
         isWinner = BoardState::UnreachableState;
       } else {
