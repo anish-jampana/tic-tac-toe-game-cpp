@@ -79,6 +79,15 @@ TEST_CASE("Boards that are unreachable") {
   SECTION("Incomplete board where numOfX == numOfO + 1 when O has won") {
     REQUIRE(Board("xOxxO--ox").EvaluateBoard() == BoardState::UnreachableState);
   }
+  SECTION("Incomplete board where X wins vertically and horizontally") {
+    REQUIRE(Board("xOoxXxxO.").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Incomplete board where X wins vertically and diagonally") {
+    REQUIRE(Board("xO-xx-xoX").EvaluateBoard() == BoardState::UnreachableState);
+  }
+  SECTION("Incomplete board where X wins horizontally and diagonally") {
+    REQUIRE(Board("xXx.x.oOx").EvaluateBoard() == BoardState::UnreachableState);
+  }
 
 }
 
