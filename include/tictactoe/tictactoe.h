@@ -7,6 +7,7 @@ namespace tictactoe {
 
 using std::string;
 using std::vector;
+
 /**
  * This enumeration specifies the possible results of the evaluation of a
  * Tic-Tac-Toe board.
@@ -42,15 +43,50 @@ class Board {
   BoardState EvaluateBoard() const;
 
  private:
-  /// TODO: add your helper functions and member variables here
+  /**
+   * Represents TicTacToe Board as a String.
+   */
   string specific_board_;
+
+  /**
+   * Length of a TicTacToe Board (should always be 3).
+   */
   int board_side_length_;
 
+  /**
+   * Using specific_board_, this method converts/fills a 2D vector with board
+   * values.
+   * @return 2D char vector
+   */
   vector<vector<char>> FillGameBoard() const;
-  BoardState CheckHorizontal(vector<vector<char>> vector) const;
-  BoardState CheckVertical(vector<vector<char>> vector) const;
-  BoardState CheckDiagonalLeftToRight(vector<vector<char>> vector) const;
-  BoardState CheckDiagonalRightToLeft(vector<vector<char>> vector) const;
+
+  /**
+   * Checks if there is a winner horizontally.
+   * @param vector
+   * @return corresponding BoardState
+   */
+  BoardState CheckHorizontal(vector<vector<char>> game_board) const;
+
+  /**
+   * Checks if there is a winner vertically.
+   * @param vector
+   * @return corresponding BoardState
+   */
+  BoardState CheckVertical(vector<vector<char>> game_board) const;
+
+  /**
+   * Checks if there is a winner diagonally from top left to bottom right.
+   * @param vector
+   * @return corresponding BoardState
+   */
+  BoardState CheckDiagonalTopLeftToBottomRight(vector<vector<char>> game_board) const;
+
+  /**
+   * Checks if there is a winner diagonally from top right to bottom left.
+   * @param vector
+   * @return corresponding BoardState
+   */
+  BoardState CheckDiagonalTopRightToBottomLeft(vector<vector<char>> game_board) const;
 };
 
-}  // namespace tictactoe
+}

@@ -51,12 +51,12 @@ BoardState Board::EvaluateBoard() const {
 
     // check if there is a winner diagonally left to right
     if (is_winner == BoardState::NoWinner) {
-      is_winner = CheckDiagonalLeftToRight(board_array);
+      is_winner = CheckDiagonalTopLeftToBottomRight(board_array);
     }
 
     // check if there is a winner diagonally right to left
     if (is_winner == BoardState::NoWinner) {
-      is_winner = CheckDiagonalRightToLeft(board_array);
+      is_winner = CheckDiagonalTopRightToBottomLeft(board_array);
     }
 
     // to overcome edge case where O wins and num_of_x > num_of_o
@@ -71,13 +71,13 @@ BoardState Board::EvaluateBoard() const {
 
 vector<vector<char>> Board::FillGameBoard() const {
   vector<vector<char>> game_board;
-  int positionOnString = 0;
+  int position_on_string = 0;
   for (int i = 0; i < board_side_length_; i++) {
     vector<char> row;
     for (int j = 0; j < board_side_length_; j++) {
-      char letter = specific_board_[positionOnString];
+      char letter = specific_board_[position_on_string];
       row.push_back(letter);
-      positionOnString++;
+      position_on_string++;
     }
     game_board.push_back(row);
   }
@@ -152,7 +152,7 @@ BoardState Board::CheckVertical(vector<vector<char>> game_board) const {
   return is_winner;
 }
 
-BoardState Board::CheckDiagonalLeftToRight(vector<vector<char>> game_board) const {
+BoardState Board::CheckDiagonalTopLeftToBottomRight(vector<vector<char>> game_board) const {
   int num_of_x_diagonal = 0;
   int num_of_o_diagonal = 0;
 
@@ -181,7 +181,7 @@ BoardState Board::CheckDiagonalLeftToRight(vector<vector<char>> game_board) cons
   return is_winner;
 }
 
-BoardState Board::CheckDiagonalRightToLeft(vector<vector<char>> game_board) const {
+BoardState Board::CheckDiagonalTopRightToBottomLeft(vector<vector<char>> game_board) const {
   int num_of_x_diagonal = 0;
   int num_of_o_diagonal = 0;
 
