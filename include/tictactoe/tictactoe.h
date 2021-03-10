@@ -79,14 +79,16 @@ class Board {
    * @param vector
    * @return corresponding BoardState
    */
-  BoardState CheckDiagonalTopLeftToBottomRight(vector<vector<char>> game_board) const;
+  BoardState CheckDiagonalTopLeftToBottomRight(
+      vector<vector<char>> game_board) const;
 
   /**
    * Checks if there is a winner diagonally from top right to bottom left.
    * @param vector
    * @return corresponding BoardState
    */
-  BoardState CheckDiagonalTopRightToBottomLeft(vector<vector<char>> game_board) const;
+  BoardState CheckDiagonalTopRightToBottomLeft(
+      vector<vector<char>> game_board) const;
 };
 
-}
+}  // namespace tictactoe
