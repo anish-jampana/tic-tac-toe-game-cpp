@@ -18,6 +18,10 @@ TEST_CASE("Invalid string provided to constructor") {
   SECTION("Empty String input") {
     REQUIRE_THROWS_AS(Board(""), std::invalid_argument);
   }
+
+  SECTION("Escape key is invalid") {
+    REQUIRE_THROWS_AS(Board("\n\n\nXxxOoxoox"), std::invalid_argument);
+  }
 }
 
 TEST_CASE("Boards with no winner") {
