@@ -31,7 +31,7 @@ BoardState Board::EvaluateBoard() const {
     }
   }
 
-  vector<vector<char>> boardArray = FillGameBoard();
+  vector<vector<char>> board_array = FillGameBoard();
 
   // difference between Xs and Os must be <= 1 and less Os than Xs because
   // X always goes first
@@ -41,22 +41,22 @@ BoardState Board::EvaluateBoard() const {
 
     // check if there is a winner horizontally
     if (is_winner == BoardState::NoWinner) {
-      is_winner = CheckHorizontal(boardArray);
+      is_winner = CheckHorizontal(board_array);
     }
 
     // check if there is a winner vertically
     if (is_winner == BoardState::NoWinner) {
-      is_winner = CheckVertical(boardArray);
+      is_winner = CheckVertical(board_array);
     }
 
     // check if there is a winner diagonally left to right
     if (is_winner == BoardState::NoWinner) {
-      is_winner = CheckDiagonalLeftToRight(boardArray);
+      is_winner = CheckDiagonalLeftToRight(board_array);
     }
 
     // check if there is a winner diagonally right to left
     if (is_winner == BoardState::NoWinner) {
-      is_winner = CheckDiagonalRightToLeft(boardArray);
+      is_winner = CheckDiagonalRightToLeft(board_array);
     }
 
     // to overcome edge case where O wins and num_of_x > num_of_o
